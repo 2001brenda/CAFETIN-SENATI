@@ -7,8 +7,12 @@ class Producto:
     def info(self):
         return f"{self.nombre} {self.stock}"
     
+    def get_precio(self):
+        return self.precio
+    
     def actualizar_stock(self, stock_vendida):
-        self.stock = self.stock - stock_vendida
+        if stock_vendida < self.stock:
+            self.stock = self.stock - stock_vendida
     
     def get_nombre(self):
         return self.nombre
