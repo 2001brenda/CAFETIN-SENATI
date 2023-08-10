@@ -50,7 +50,16 @@ def listar_productos(list_product):
 def vender_producto(product_selected, cantidad):
     product_selected.actualizar_stock(cantidad)
     
-
+def ticket_venta(nombre_p, cantidad_p, sub_total):
+    t = f"""
+    CAFETIN SENATI
+    TICKET DE VENTA
+    PRODUCTO           CANTIDAD        SUB, TOTAL
+    
+    1. { nombre_p }      {cantidad_p}     {sub_total}
+    """
+    
+    return
         
 print(menu)
         
@@ -59,9 +68,11 @@ if opcion == 1:
     listar_productos(lista_desayunos)
     opcion_desayuno = input_int("Elija un opcion: ", "No existe esta opcion")
     producto_seleccionado = lista_desayunos[opcion_desayuno - 1]
-    pregunta = input_int("Cual es la cantidad que desea: ")
+    pregunta = input_int("Cual es la cantidad que desea: ", "No existe esta opcion")
     vender_producto(producto_seleccionado, pregunta)
-    print(producto_seleccionado.get_info_completa())
+    subtotal = producto_seleccionado.get_precio() * pregunta 
+    print(ticket_venta(producto_seleccionado.get_nombre(), pregunta, subtotal))
+    
 elif opcion == 2:
     listar_productos(lista_almuerzos)
 elif opcion == 3:
