@@ -1,4 +1,5 @@
 from producto import Producto 
+from cliente import Cliente
 from utilitarios import input_int
 
 menu = """
@@ -11,6 +12,8 @@ OPCIONES:
 3. Cena
 4, Salir
 """
+
+jq = Producto("Jugo de Quinua", 2, 50)
 
 lista_desayunos = []
 lista_almuerzos = []
@@ -50,16 +53,29 @@ def listar_productos(list_product):
 def vender_producto(product_selected, cantidad):
     product_selected.actualizar_stock(cantidad)
     
-def ticket_venta(nombre_p, cantidad_p, sub_total):
+def ticket_venta(nombre_p, cantidad_p, sub_total, client):
     t = f"""
-    CAFETIN SENATI
-    TICKET DE VENTA
-    PRODUCTO           CANTIDAD        SUB, TOTAL
+                        CAFETIN SENATI
+                        - - - - - - - - 
+                        TICKET DE VENTA
+                        ________________
+                        
+    cliente: { client }
     
-    1. { nombre_p }      {cantidad_p}     {sub_total}
+    PRODUCTO             CANTIDAD        SUB TOTAL
+    
+1. { nombre_p }           {cantidad_p}             {sub_total}
     """
     
-    return
+    return t
+
+def crear_cliente(list_client):
+    nombre_c = input("Nombre del cliente: ")
+    dni_c = input(" DNI del cliente: ")
+    cliente_c = Cliente (nombre_c, dni_c)
+    list_client.append(cliente_c)
+    
+lista_clientes = []
         
 print(menu)
         
@@ -71,7 +87,11 @@ if opcion == 1:
     pregunta = input_int("Cual es la cantidad que desea: ", "No existe esta opcion")
     vender_producto(producto_seleccionado, pregunta)
     subtotal = producto_seleccionado.get_precio() * pregunta 
-    print(ticket_venta(producto_seleccionado.get_nombre(), pregunta, subtotal))
+    cliente = input("digite el nombre del cliente")
+    #exist_client= input ("el cliente existe si/no: ")
+    #if exist_client == "si":
+        
+    print(ticket_venta(producto_seleccionado.get_nombre(), pregunta, subtotal, cliente ))
     
 elif opcion == 2:
     listar_productos(lista_almuerzos)
